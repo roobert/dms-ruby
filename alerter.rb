@@ -3,21 +3,24 @@
 require "sequel"
 require "slack-notifier"
 
+%w[WEBHOOK_URL CLIENTS SLACK_USERNAME SLACK_CHANNEL].each do |param|
+  raise StandardError, "#{param} not set!" unless ENV[param]
+end
+
+webhook_url    = ENV["WEBHOOK_URL"]
+clients        = ENV["CLIENTS"]
+slack_username = ENV["SLACK_USERNAME"]
+slack_channel  = ENV["SLACK_CHANNEL"]
+
 up_symbol   = "❤"
 down_symbol = "🔥"
 good_symbol = "✓"
 bad_symbol  = "✗"
 disconnected_symbol = "!"
 
-webhook_url = ENV["WEBHOOK_URL"]
-clients     = ENV["CLIENTS"]
-
-raise StandardError, "WEBHOOK_URL not set!" unless webhook_url
-raise StandardError, "CLIENTS not set!"     unless clients
-
 notifier = Slack::Notifier.new webhook_url do
-  defaults channel: "#alerts-robw",
-  username: "dms"
+  defaults channel: slack_channel,
+  username: slack_username
 end
 
 database = Sequel.sqlite('dms.db')
