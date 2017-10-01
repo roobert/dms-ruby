@@ -1,6 +1,6 @@
 ## About
 
-This is *push based* dead mans switch for prometheus and alertmanager - PoC
+A *push based* dead mans switch for prometheus and alertmanager - PoC
 
 ## Install
 
