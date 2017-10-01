@@ -20,9 +20,6 @@ def update_bitmap(bitmap, date_time)
   slots = 4 * 60 * 24
   halt "broken bitmap" unless bitmap.length == slots
 
-  # create a new bitmap if one doesn't exist, and mark all slots as DOWN with a 1
-  #bitmap = Array.new(slots, 1) unless bitmap.is_a?(Array)
-
   # calulate slot for current timestamp
   midnight = Date.today.to_time
   slot = (date_time - midnight).to_i / 15
@@ -55,13 +52,10 @@ post '/prometheus' do
 
   bitmap = bitmap.split("").map { |i| i.to_i }
 
-  ### update the bitmap
   updated_bitmap = update_bitmap(bitmap, date_time)
 
-  ### perform upsert type thing
   data_table.where(site: site, date: todays_date).update(bitmap: updated_bitmap)
 
-  # respond with 200
   "OK"
 end
 
