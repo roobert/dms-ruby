@@ -3,12 +3,12 @@
 require "sequel"
 require "slack-notifier"
 
-%w[WEBHOOK_URL CLIENTS SLACK_USERNAME SLACK_CHANNEL].each do |param|
+%w[CLIENTS SLACK_WEBHOOK SLACK_USERNAME SLACK_CHANNEL].each do |param|
   raise StandardError, "#{param} not set!" unless ENV[param]
 end
 
-webhook_url    = ENV["WEBHOOK_URL"]
 clients        = ENV["CLIENTS"]
+slack_webhook  = ENV["WEBHOOK_URL"]
 slack_username = ENV["SLACK_USERNAME"]
 slack_channel  = ENV["SLACK_CHANNEL"]
 

@@ -20,5 +20,5 @@ rackup
 
 Alerter:
 ```
-WEBHOOK_URL="http://..." ./alerter.rb
+CLIENTS="<host0>,<host1>,..." SLACK_WEBHOOK="http://..." SLACK_USERNAME="dms" SLACK_CHANNEL="#alerts" ./alerter.rb
 ```
