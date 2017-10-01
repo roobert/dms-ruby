@@ -7,7 +7,6 @@ require "multi_json"
 database   = Sequel.sqlite('dms.db')
 data_table = database.from(:data)
 
-# create table if it doesn't exist
 database.create_table? :data do
   primary_key :id
   String      :site
@@ -24,8 +23,10 @@ def update_bitmap(bitmap, date_time)
   midnight = Date.today.to_time
   slot = (date_time - midnight).to_i / 15
 
+  # mark the slot as UP for this site
   bitmap[slot] = 0
 
+  # storing bitmap as a String for now..
   bitmap.join.to_s
 end
 
