@@ -59,6 +59,8 @@ post '/prometheus' do
   "OK"
 end
 
+# web ui stuff
+
 get "/api/all" do
   data_table.all.to_s
 end
