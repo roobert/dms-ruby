@@ -6,9 +6,7 @@ A *push based* dead mans switch for prometheus and alertmanager - PoC
 
 Dependencies:
 ```
-apt install libsqlite3-dev sqlite3
-gem install bundle
-bundle install
+rake install
 ```
 
 ## Run
