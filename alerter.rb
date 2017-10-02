@@ -59,24 +59,21 @@ loop do
 
     bitmap_a = results.first[:bitmap].split("").map { |i| i.to_i }
     last_five_minutes = bitmap_a[0..(slot-1)][-20..-1]
-    last_five_minutes_pretty = last_five_minutes.join.gsub("0", good_symbol).gsub("1", bad_symbol).scan(/.{4}/).join("|")
+    last_five_minutes_pretty = last_five_minutes.join.gsub("1", good_symbol).gsub("0", bad_symbol).scan(/.{4}/).join("|")
 
     # first fail alert
-    # if the last 5 minutes is all 0, apart from the last slot, then ping slack
-    #if (last_five_minutes[0..-2].count(0) == 19) && (last_five_minutes[-1] == 1)
-    if (last_five_minutes[-2] == 0) && (last_five_minutes[-1] == 1)
+    if (last_five_minutes[-2] == 1) && (last_five_minutes[-1] == 0)
       notifier.ping "#{client}   #{down_symbol}   #{last_five_minutes_pretty}"
     end
 
     # resolved
-    # if the second to last slot contains a 1, and the current slot a 0
-    if (last_five_minutes[-2] == 1) && (last_five_minutes[-1] == 0)
+    if (last_five_minutes[-2] == 0) && (last_five_minutes[-1] == 1)
       notifier.ping "#{client}   #{up_symbol}   #{last_five_minutes_pretty}"
     end
 
     # stdout
     # output client status to standardout on every loop
-    if last_five_minutes[-1] == 0
+    if last_five_minutes[-1] == 1
       puts "#{client} - #{up_symbol}  - #{last_five_minutes_pretty}"
     else
       puts "#{client} - #{down_symbol} - #{last_five_minutes_pretty}"
