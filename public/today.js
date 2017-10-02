@@ -43,7 +43,3 @@ function createRow(site) {
 
 // bitmap should be stylised
 
-// stylize bitmap
-
-// * 
-
