@@ -6,4 +6,6 @@ gem "sequel"
 gem "multi_json"
 gem "slack-notifier"
 gem "sqlite3"
+gem "rake"
+gem "haml"
 
